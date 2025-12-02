@@ -17,6 +17,8 @@
         </el-col>
       </el-row>
     </el-main>
+    <!-- 评论区 -->
+    <Comments :productId="goods.id" />
   </div>
 </template>
 
@@ -26,6 +28,7 @@ import { useCartStore } from '../pinia'
 import { ref, onMounted } from 'vue'
 import Navbar from '../components/Navbar.vue'
 import { ElMessage } from 'element-plus'
+import Comments from '../components/Comments.vue'
 
 const route = useRoute()
 const router = useRouter()
