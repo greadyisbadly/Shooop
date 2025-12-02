@@ -27,7 +27,8 @@
             </el-dropdown>
           </template>
           <template v-else>
-            <el-button type="primary" size="small" @click="showAuthDialog = true">登录 / 注册</el-button>
+            <router-link to="/login"><el-button type="primary" size="small">登录</el-button></router-link>
+            <router-link to="/register"><el-button type="text" size="small">注册</el-button></router-link>
           </template>
         </div>
       </el-container>

@@ -38,32 +38,24 @@ export const useCartStore = defineStore('cart', {
 })
 
 export const useAuthStore = defineStore('auth', {
+  // 这是一个极简的内存型认证 store：
+  // - 不做持久化（不使用 localStorage）
+  // - 注册/登录直接设置 user，任何账号密码均可登录
+  // - 适用于演示或无后端场景
   state: () => ({
-    user: JSON.parse(localStorage.getItem('auth_user') || 'null')
+    user: null
   }),
   actions: {
-    register({ name, password }) {
-      const users = JSON.parse(localStorage.getItem('mock_users') || '[]')
-      if (users.find(u => u.name === name)) {
-        throw new Error('用户已存在')
-      }
-      users.push({ name, password })
-      localStorage.setItem('mock_users', JSON.stringify(users))
+    // 注册：直接把用户名设置为已登录用户（不保存密码）
+    register({ name /*, password */ }) {
       this.user = { name }
-      localStorage.setItem('auth_user', JSON.stringify(this.user))
     },
-    login({ name, password }) {
-      const users = JSON.parse(localStorage.getItem('mock_users') || '[]')
-      const u = users.find(u => u.name === name && u.password === password)
-      if (!u) {
-        throw new Error('用户名或密码错误')
-      }
+    // 登录：不校验，直接设为已登录用户
+    login({ name /*, password */ }) {
       this.user = { name }
-      localStorage.setItem('auth_user', JSON.stringify(this.user))
     },
     logout() {
       this.user = null
-      localStorage.removeItem('auth_user')
     }
   },
   getters: {
