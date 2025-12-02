@@ -105,26 +105,6 @@ const goToUser = () => {
 }
 </script>
 
-<template>
-  <el-dialog v-model:visible="showAuthDialog" title="用户验证" width="380px">
-    <div style="display:flex;gap:12px;margin-bottom:12px;">
-      <el-button :type="authMode==='login'? 'primary' : 'default'" @click="authMode='login'">登录</el-button>
-      <el-button :type="authMode==='register'? 'primary' : 'default'" @click="authMode='register'">注册</el-button>
-    </div>
-    <el-form label-position="top">
-      <el-form-item label="用户名">
-        <el-input v-model="form.name" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="密码">
-        <el-input v-model="form.password" type="password" autocomplete="off"></el-input>
-      </el-form-item>
-    </el-form>
-    <template #footer>
-      <el-button @click="showAuthDialog=false">取消</el-button>
-      <el-button type="primary" @click="submitAuth">确定</el-button>
-    </template>
-  </el-dialog>
-</template>
 
 <style scoped>
 .el-header { padding: 0; }
