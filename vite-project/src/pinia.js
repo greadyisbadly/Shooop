@@ -36,3 +36,37 @@ export const useCartStore = defineStore('cart', {
     }
   }
 })
+
+export const useAuthStore = defineStore('auth', {
+  state: () => ({
+    user: JSON.parse(localStorage.getItem('auth_user') || 'null')
+  }),
+  actions: {
+    register({ name, password }) {
+      const users = JSON.parse(localStorage.getItem('mock_users') || '[]')
+      if (users.find(u => u.name === name)) {
+        throw new Error('用户已存在')
+      }
+      users.push({ name, password })
+      localStorage.setItem('mock_users', JSON.stringify(users))
+      this.user = { name }
+      localStorage.setItem('auth_user', JSON.stringify(this.user))
+    },
+    login({ name, password }) {
+      const users = JSON.parse(localStorage.getItem('mock_users') || '[]')
+      const u = users.find(u => u.name === name && u.password === password)
+      if (!u) {
+        throw new Error('用户名或密码错误')
+      }
+      this.user = { name }
+      localStorage.setItem('auth_user', JSON.stringify(this.user))
+    },
+    logout() {
+      this.user = null
+      localStorage.removeItem('auth_user')
+    }
+  },
+  getters: {
+    isLogged: (state) => !!state.user
+  }
+})
