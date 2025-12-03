@@ -34,21 +34,29 @@
   </div>
 </template>
 
+
 <script setup>
+// Cart.vue - 购物车页面
+// 功能：展示购物车商品、修改数量、删除商品、结算（示意）
+
+// 1. 导入需要的工具和 store
 import { useRouter } from 'vue-router'
 import { useCartStore } from '../pinia'
 import Navbar from '../components/Navbar.vue'
 import { ElMessage } from 'element-plus'
 
+// 2. 获取路由与购物车 store 实例
 const router = useRouter()
 const cartStore = useCartStore()
 
-// 修改数量
+// 3. 修改商品数量时调用（由 el-input-number 的 @change 触发）
+//    参数 id 是商品 id，count 是新的数量
 const handleCountChange = (id, count) => {
+  // 调用 store 中的方法更新数量
   cartStore.updateCount(id, count)
 }
 
-// 删除商品
+// 4. 删除商品：调用 store 的 removeGoods 并给出提示
 const handleDelete = (id) => {
   cartStore.removeGoods(id)
   ElMessage.info('商品已删除')
